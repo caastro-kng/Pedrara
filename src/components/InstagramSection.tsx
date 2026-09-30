@@ -51,10 +51,12 @@ export const InstagramSection: React.FC = () => {
                 />
                 <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 text-white">
                   <p className="text-[11px] line-clamp-2 leading-snug">{post.caption}</p>
-                  <div className="mt-2 flex items-center gap-1.5 text-[10px] text-[#DFCCA6]">
-                    <Instagram className="w-3 h-3" />
-                    <span>{post.likes} curtidas</span>
-                  </div>
+                  {post.likes ? (
+                    <div className="mt-2 flex items-center gap-1.5 text-[10px] text-[#DFCCA6]">
+                      <Instagram className="w-3 h-3" />
+                      <span>{post.likes} curtidas</span>
+                    </div>
+                  ) : null}
                 </div>
               </a>
             </FadeIn>

@@ -133,9 +133,11 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBooking }) => {
             >
               Agendar horário
             </button>
-            <div className="text-center text-xs text-[#7E7E88]">
-              {SALON_INFO.address.full}
-            </div>
+            {SALON_INFO.address.full ? (
+              <div className="text-center text-xs text-[#7E7E88]">
+                {SALON_INFO.address.full}
+              </div>
+            ) : null}
           </div>
         </div>
       )}

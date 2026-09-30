@@ -12,7 +12,6 @@ import { ExperienceSection } from './components/ExperienceSection';
 import { VisualHighlight } from './components/VisualHighlight';
 import { TeamSection } from './components/TeamSection';
 import { GallerySection } from './components/GallerySection';
-import { TestimonialsSection } from './components/TestimonialsSection';
 import { BookingCTA } from './components/BookingCTA';
 import { InstagramSection } from './components/InstagramSection';
 import { Footer } from './components/Footer';
@@ -71,9 +70,6 @@ export default function App() {
 
         {/* 08 — Galeria / Resultados */}
         <GallerySection onOpenLightbox={(idx) => setLightboxIndex(idx)} />
-
-        {/* 09 — Depoimentos */}
-        <TestimonialsSection />
 
         {/* 10 — CTA de Agendamento */}
         <BookingCTA onOpenBooking={() => handleOpenBooking()} />

@@ -9,7 +9,7 @@ export const VisualHighlight: React.FC = () => {
       {/* Full-bleed background image */}
       <div className="absolute inset-0 z-0">
         <ImageWithFallback
-          src="https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?auto=format&fit=crop&w=2000&q=88"
+          src=""
           alt="Conceito PEDRARA: Precisão e Movimento"
           fallbackTitle="Precisão e Movimento"
           className="w-full h-full object-cover object-center scale-100 hover:scale-105 transition-transform duration-1000 ease-out"

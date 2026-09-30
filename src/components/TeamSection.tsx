@@ -45,9 +45,11 @@ export const TeamSection: React.FC<TeamSectionProps> = ({ onSelectProfessionalTo
                     className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
                   />
                   {/* Subtle Experience Tag */}
-                  <div className="absolute top-3 left-3 bg-[#FAF8F5]/90 backdrop-blur-sm px-2.5 py-1 border border-[#D8D5CF]/50 text-[10px] uppercase tracking-wider text-[#1A1A1D]">
-                    {member.experienceYears} anos exp.
-                  </div>
+                  {member.experienceYears > 0 ? (
+                    <div className="absolute top-3 left-3 bg-[#FAF8F5]/90 backdrop-blur-sm px-2.5 py-1 border border-[#D8D5CF]/50 text-[10px] uppercase tracking-wider text-[#1A1A1D]">
+                      {member.experienceYears} anos exp.
+                    </div>
+                  ) : null}
                 </div>
 
                 {/* Information */}
@@ -59,7 +61,7 @@ export const TeamSection: React.FC<TeamSectionProps> = ({ onSelectProfessionalTo
                     <button
                       onClick={() => onSelectProfessionalToBook(member.id)}
                       className="p-1 text-[#7E7E88] hover:text-[#1A1A1D] transition-colors"
-                      title={`Agendar com ${member.name}`}
+                      title="Agendar atendimento"
                     >
                       <ArrowUpRight className="w-4 h-4" />
                     </button>
@@ -80,7 +82,7 @@ export const TeamSection: React.FC<TeamSectionProps> = ({ onSelectProfessionalTo
                     onClick={() => onSelectProfessionalToBook(member.id)}
                     className="w-full py-2 text-center text-[11px] uppercase tracking-[0.14em] font-medium text-[#52525A] group-hover:text-[#1A1A1D] group-hover:bg-[#F4F1EB] transition-colors"
                   >
-                    Agendar com {member.name.split(' ')[0]}
+                    Agendar atendimento
                   </button>
                 </div>
               </div>

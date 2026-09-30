@@ -73,7 +73,7 @@ export const Manifesto: React.FC = () => {
                 {/* Primary Larger Image */}
                 <div className="w-4/5 aspect-[4/5] ml-auto overflow-hidden shadow-sm">
                   <ImageWithFallback
-                    src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1200&q=85"
+                    src=""
                     alt="Processo criativo e cuidado na PEDRARA Salon"
                     fallbackTitle="Técnica & Cuidados PEDRARA"
                     className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
@@ -83,7 +83,7 @@ export const Manifesto: React.FC = () => {
                 {/* Secondary Overlapping Image */}
                 <div className="absolute -bottom-8 sm:-bottom-12 left-0 w-3/5 aspect-[3/4] border-8 border-[#FAF8F5] shadow-xl overflow-hidden hidden sm:block">
                   <ImageWithFallback
-                    src="https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?auto=format&fit=crop&w=800&q=85"
+                    src=""
                     alt="Detalhes arquitetônicos do salão PEDRARA"
                     fallbackTitle="Arquitetura & Conforto"
                     className="w-full h-full object-cover"

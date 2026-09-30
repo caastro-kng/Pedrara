@@ -5,6 +5,8 @@ import { SALON_INFO } from '../data/salonData';
 export const WhatsAppFloatingButton: React.FC = () => {
   const [showTooltip, setShowTooltip] = useState(false);
 
+  if (!SALON_INFO.whatsappUrl) return null;
+
   return (
     <div className="fixed bottom-6 right-6 z-30 flex items-center gap-3">
       {showTooltip && (
