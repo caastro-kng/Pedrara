@@ -1,0 +1,6 @@
+{
+  "name": "PEDRARA Salon",
+  "description": "Salão de beleza contemporâneo com cortes femininos e masculinos, tratamentos, mechas, maquiagem e cuidados sob medida.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
