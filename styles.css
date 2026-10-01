@@ -136,3 +136,16 @@ h1,h2,h3,p{margin-top:0}
   transform:none;
   filter:none;
 }
+
+.nav-button,.desktop-nav button,.mobile-menu nav button[data-scroll-to],.hero-discover{
+  appearance:none;-webkit-appearance:none;border:0;background:transparent;color:inherit;font:inherit;padding:0;
+}
+.nav-button{display:inline-flex;align-items:baseline;gap:9px;width:max-content;text-align:left}
+.desktop-nav button{opacity:.82;text-transform:uppercase;letter-spacing:.14em;font-size:11px;transition:opacity .2s,color .2s}
+.desktop-nav button:hover{opacity:1;color:var(--champagne)}
+.site-header.hero-left .desktop-nav button{pointer-events:none}
+.mobile-menu nav button[data-scroll-to]{font-family:"Cormorant Garamond",serif;font-size:34px;text-align:left;padding:11px 0;border-bottom:1px solid var(--line);color:var(--graphite)}
+.hero-discover{display:flex;gap:10px;text-transform:uppercase;letter-spacing:.17em;font-size:9px;cursor:pointer}
+.service-panel .service-media,.service-panel .service-copy{opacity:1!important;transform:none;filter:none}
+.service-panel.is-switching .service-media,.service-panel.is-switching .service-copy,
+.service-panel.is-entering .service-media,.service-panel.is-entering .service-copy{opacity:1!important;transform:none!important;filter:none!important;animation:none!important}

@@ -116,8 +116,7 @@ menuToggle.addEventListener('click',()=>{
 $$('a',mobileMenu).forEach(link=>link.addEventListener('click',closeMobileMenu));
 
 let activeService=null;
-let serviceTransitionTimer=null;
-let serviceEnterTimer=null;
+let serviceAnimationToken=0;
 
 function applyServiceContent(id){
   const data=SERVICES[id]||SERVICES.cabelo;
@@ -132,40 +131,65 @@ function applyServiceContent(id){
       <div><strong>${name}</strong><span> · Sob consulta</span></div>
       <button data-book-service="${name}">Agendar</button>
     </div>`).join('');
-
-  $('[data-service-tab]').forEach(button=>{
+  $$('[data-service-tab]').forEach(button=>{
     button.classList.toggle('active',button.dataset.serviceTab===id);
   });
   activeService=id;
 }
 
-function renderService(id,animate=true){
+async function renderService(id,animate=true){
   if(id===activeService)return;
-  const panel=$('.service-panel');
-  clearTimeout(serviceTransitionTimer);
-  clearTimeout(serviceEnterTimer);
-  panel.classList.remove('is-switching','is-entering');
+  const media=$('.service-media');
+  const copy=$('.service-copy');
+  const token=++serviceAnimationToken;
 
-  if(!animate){
+  media.getAnimations().forEach(animation=>animation.cancel());
+  copy.getAnimations().forEach(animation=>animation.cancel());
+  media.style.opacity='1';
+  copy.style.opacity='1';
+  media.style.transform='none';
+  copy.style.transform='none';
+  media.style.filter='none';
+  copy.style.filter='none';
+
+  if(!animate||matchMedia('(prefers-reduced-motion: reduce)').matches){
     applyServiceContent(id);
     return;
   }
 
-  panel.classList.remove('is-entering');
-  panel.classList.add('is-switching');
+  const outOptions={duration:180,easing:'cubic-bezier(.4,0,1,1)',fill:'forwards'};
+  const outMedia=media.animate([
+    {opacity:1,transform:'translateX(0) scale(1)',filter:'blur(0)'},
+    {opacity:0,transform:'translateX(-12px) scale(.995)',filter:'blur(3px)'}
+  ],outOptions);
+  const outCopy=copy.animate([
+    {opacity:1,transform:'translateX(0)',filter:'blur(0)'},
+    {opacity:0,transform:'translateX(12px)',filter:'blur(3px)'}
+  ],outOptions);
 
-  serviceTransitionTimer=setTimeout(()=>{
-    applyServiceContent(id);
-    panel.classList.remove('is-switching');
-    void panel.offsetWidth;
-    panel.classList.add('is-entering');
-    serviceEnterTimer=setTimeout(()=>{
-      panel.classList.remove('is-entering');
-      // Defensive reset: the service panel must never remain visually hidden.
-      $('.service-media').style.removeProperty('opacity');
-      $('.service-copy').style.removeProperty('opacity');
-    },700);
-  },260);
+  await Promise.allSettled([outMedia.finished,outCopy.finished]);
+  if(token!==serviceAnimationToken)return;
+
+  applyServiceContent(id);
+  media.getAnimations().forEach(animation=>animation.cancel());
+  copy.getAnimations().forEach(animation=>animation.cancel());
+
+  const inOptions={duration:420,easing:'cubic-bezier(.16,1,.3,1)',fill:'none'};
+  media.animate([
+    {opacity:0,transform:'translateX(-12px) scale(1.008)',filter:'blur(3px)'},
+    {opacity:1,transform:'translateX(0) scale(1)',filter:'blur(0)'}
+  ],inOptions);
+  copy.animate([
+    {opacity:0,transform:'translateX(12px)',filter:'blur(3px)'},
+    {opacity:1,transform:'translateX(0)',filter:'blur(0)'}
+  ],inOptions);
+
+  media.style.opacity='1';
+  copy.style.opacity='1';
+  media.style.transform='none';
+  copy.style.transform='none';
+  media.style.filter='none';
+  copy.style.filter='none';
 }
 
 $$('[data-service-tab]').forEach(button=>{
@@ -277,29 +301,23 @@ images.forEach(image=>{
   });
 });
 
-// Internal navigation without exposing hash fragments in the address bar.
-document.addEventListener('click',event=>{
-  const link=event.target.closest('a[href^="#"]');
-  if(!link)return;
-  const hash=link.getAttribute('href');
-  if(!hash||hash==='#')return;
-  const target=$(hash);
-  if(!target)return;
-  event.preventDefault();
-  closeMobileMenu();
-  target.scrollIntoView({behavior:'smooth',block:'start'});
+
+// Hashless single-page navigation: the address bar stays on the site root.
+function cleanAddressBar(){
   if(location.hash){
     history.replaceState(null,'',location.pathname+location.search);
   }
-});
-
-// Clean hashes from direct/reloaded internal navigation as well.
-if(location.hash){
-  const initialTarget=$(location.hash);
-  if(initialTarget){
-    requestAnimationFrame(()=>{
-      initialTarget.scrollIntoView({block:'start'});
-      history.replaceState(null,'',location.pathname+location.search);
-    });
-  }
 }
+cleanAddressBar();
+addEventListener('hashchange',cleanAddressBar);
+
+document.addEventListener('click',event=>{
+  const control=event.target.closest('[data-scroll-to]');
+  if(!control)return;
+  event.preventDefault();
+  const target=document.getElementById(control.dataset.scrollTo);
+  if(!target)return;
+  closeMobileMenu();
+  target.scrollIntoView({behavior:'smooth',block:'start'});
+  cleanAddressBar();
+});
