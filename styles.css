@@ -149,3 +149,10 @@ h1,h2,h3,p{margin-top:0}
 .service-panel .service-media,.service-panel .service-copy{opacity:1!important;transform:none;filter:none}
 .service-panel.is-switching .service-media,.service-panel.is-switching .service-copy,
 .service-panel.is-entering .service-media,.service-panel.is-entering .service-copy{opacity:1!important;transform:none!important;filter:none!important;animation:none!important}
+
+.footer-nav{display:block!important}
+.footer-nav>span{display:block;font-size:9px;color:var(--champagne);text-transform:uppercase;letter-spacing:.18em;margin-bottom:14px}
+.footer-nav-links{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center}
+.footer-nav-links button{appearance:none;-webkit-appearance:none;border:0;border-bottom:1px solid transparent;background:transparent;color:var(--muted);padding:4px 0 5px;font-family:"Plus Jakarta Sans",system-ui,sans-serif;font-size:10px;font-weight:500;line-height:1;text-transform:uppercase;letter-spacing:.14em;cursor:pointer;transition:color .22s ease,border-color .22s ease,transform .22s ease}
+.footer-nav-links button:hover{color:var(--graphite);border-bottom-color:var(--champagne);transform:translateY(-1px)}
+@media(max-width:640px){.footer-nav-links{gap:12px 18px}.footer-nav-links button{font-size:9px}}
