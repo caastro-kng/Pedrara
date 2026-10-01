@@ -1,22 +1,270 @@
 <!doctype html>
-<html lang="pt-BR" class="scroll-smooth">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PEDRARA Salon | Beleza em Movimento</title>
-    <meta name="description" content="Salão de beleza contemporâneo com cortes femininos e masculinos, tratamentos, mechas, maquiagem e cuidados sob medida." />
-    <meta property="og:title" content="PEDRARA Salon | Beleza em Movimento" />
-    <meta property="og:description" content="Uma experiência de beleza criada para valorizar aquilo que torna você único." />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  </head>
-  <body class="bg-[#FAF8F5] text-[#1E1E20] antialiased selection:bg-[#C5A880]/20 selection:text-[#1E1E20]">
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#1a1a1d">
+  <meta name="description" content="PEDRARA Salon — beleza em movimento, precisão em cada detalhe.">
+  <meta property="og:title" content="PEDRARA Salon">
+  <meta property="og:description" content="Uma experiência de beleza criada para valorizar aquilo que torna você único.">
+  <meta property="og:type" content="website">
+  <title>PEDRARA Salon | Beleza em Movimento</title>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/motion.css">
+</head>
+<body>
+  <div class="scroll-progress" aria-hidden="true"><span id="scrollProgress"></span></div>
+
+  <header class="site-header" id="siteHeader">
+    <a class="brand" href="#hero" aria-label="PEDRARA Salon — início">
+      <strong>PEDRARA</strong><span>SALON</span>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Navegação principal">
+      <a href="#manifesto">O Salão</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#experiencia">Experiência</a>
+      <a href="#equipe">Equipe</a>
+      <a href="#galeria">Galeria</a>
+    </nav>
+
+    <button class="header-cta" data-open-booking>Agendar horário <span>↗</span></button>
+
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+  </header>
+
+  <aside class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <nav>
+      <a href="#manifesto">O Salão</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#experiencia">Experiência</a>
+      <a href="#equipe">Equipe</a>
+      <a href="#galeria">Galeria</a>
+      <button data-open-booking>Agendar horário</button>
+    </nav>
+  </aside>
+
+  <main>
+    <section class="hero" id="hero" data-motion-scene>
+      <div class="hero-media">
+        <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=2200&q=90" alt="Interior contemporâneo de salão de beleza">
+        <div class="hero-scrim"></div>
+      </div>
+
+      <div class="hero-copy">
+        <div class="eyebrow light"><i></i>PEDRARA Salon</div>
+        <h1>Beleza em movimento.<br><em>Precisão em cada detalhe.</em></h1>
+        <p>Uma experiência de beleza criada para valorizar aquilo que torna você único.</p>
+        <div class="hero-actions">
+          <button class="btn btn-light" data-open-booking>Agendar horário <span>↗</span></button>
+          <a class="btn btn-ghost-light" href="#servicos">Ver serviços</a>
+        </div>
+      </div>
+
+      <div class="hero-footer">
+        <span>Mulheres · Homens · Crianças</span>
+        <a href="#manifesto">Descobrir <b>↓</b></a>
+      </div>
+    </section>
+
+    <section class="section manifesto" id="manifesto">
+      <div class="manifesto-copy reveal">
+        <span class="eyebrow">PEDRARA SALON</span>
+        <h2>Cada detalhe revela uma nova versão de você.</h2>
+        <p>Técnica, cuidado e personalidade em uma experiência de beleza feita sob medida para diferentes estilos, idades e momentos.</p>
+
+        <div class="manifesto-meta">
+          <div><strong>Sob medida</strong><span>Atendimento</span></div>
+          <div><strong>Completo</strong><span>Beleza</span></div>
+          <div><strong>Para todos</strong><span>Públicos</span></div>
+        </div>
+      </div>
+
+      <div class="manifesto-media reveal media-zoom">
+        <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1500&q=88" alt="Atendimento e cuidado em salão de beleza" loading="lazy">
+      </div>
+    </section>
+
+    <section class="services" id="servicos">
+      <div class="section services-inner">
+        <div class="section-heading reveal">
+          <div>
+            <span class="eyebrow">Especialidades</span>
+            <h2>Serviços pensados para valorizar sua autenticidade.</h2>
+          </div>
+          <button class="text-link" id="openServiceCatalog">Ver todos os serviços <span>↗</span></button>
+        </div>
+
+        <div class="service-tabs reveal" role="tablist" aria-label="Categorias de serviços">
+          <button class="active" data-service-tab="cabelo"><b>01</b>Cabelo</button>
+          <button data-service-tab="cor"><b>02</b>Cor & Mechas</button>
+          <button data-service-tab="masculino"><b>03</b>Masculino & Barba</button>
+          <button data-service-tab="sobrancelhas"><b>04</b>Sobrancelhas & Epilação</button>
+          <button data-service-tab="maquiagem"><b>05</b>Maquiagem</button>
+        </div>
+
+        <div class="service-panel reveal">
+          <div class="service-media media-zoom">
+            <img id="serviceImage" src="" alt="">
+          </div>
+
+          <div class="service-copy">
+            <span class="service-subtitle" id="serviceSubtitle"></span>
+            <h3 id="serviceTitle"></h3>
+            <p id="serviceDescription"></p>
+            <div class="service-list" id="serviceList"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="experience section" id="experiencia">
+      <div class="experience-heading reveal">
+        <div>
+          <span class="eyebrow">Experiência PEDRARA</span>
+          <h2>Mais que um atendimento. <em>Uma experiência.</em></h2>
+        </div>
+        <p>Uma jornada simples: ouvir, executar com precisão e entregar um resultado que faça sentido para você.</p>
+      </div>
+
+      <div class="experience-grid">
+        <article class="reveal"><span>01</span><h3>Escuta</h3><p>Entender o que você procura antes de qualquer transformação.</p></article>
+        <article class="reveal"><span>02</span><h3>Técnica</h3><p>Execução cuidadosa, acabamento preciso e atenção aos detalhes.</p></article>
+        <article class="reveal"><span>03</span><h3>Personalidade</h3><p>Resultados pensados para combinar com seu estilo e sua rotina.</p></article>
+      </div>
+    </section>
+
+    <section class="visual-highlight" data-motion-scene>
+      <img src="https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?auto=format&fit=crop&w=2200&q=90" alt="Cabelo com movimento e acabamento editorial" loading="lazy">
+      <div class="visual-scrim"></div>
+      <div class="visual-copy reveal">
+        <span>FLUXO LAPIDADO</span>
+        <h2>Precisão que estrutura.<br><em>Movimento que revela.</em></h2>
+      </div>
+    </section>
+
+    <section class="section team" id="equipe">
+      <div class="team-media reveal media-zoom">
+        <img src="https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?auto=format&fit=crop&w=1600&q=88" alt="Ambiente de salão de beleza" loading="lazy">
+      </div>
+
+      <div class="team-copy reveal">
+        <span class="eyebrow">Equipe PEDRARA</span>
+        <h2>Pessoas que cuidam de cada detalhe.</h2>
+        <p>Os perfis reais dos profissionais serão adicionados aqui. No MVP, o foco fica na experiência do salão e nos serviços.</p>
+        <button class="text-link" data-open-booking>Agendar atendimento <span>↗</span></button>
+      </div>
+    </section>
+
+    <section class="gallery" id="galeria">
+      <div class="section gallery-inner">
+        <div class="section-heading reveal">
+          <div>
+            <span class="eyebrow">Galeria</span>
+            <h2>Resultados & inspiração.</h2>
+          </div>
+          <a class="text-link" href="https://www.instagram.com/pedrarasalon/" target="_blank" rel="noopener noreferrer">Ver Instagram <span>↗</span></a>
+        </div>
+
+        <div class="gallery-grid">
+          <button class="gallery-item reveal" data-gallery-index="0">
+            <img src="https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?auto=format&fit=crop&w=1400&q=88" alt="Corte e styling" loading="lazy">
+            <span>Corte & Styling</span><strong>Movimento & textura</strong>
+          </button>
+          <button class="gallery-item reveal" data-gallery-index="1">
+            <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?auto=format&fit=crop&w=1400&q=88" alt="Mechas e cor" loading="lazy">
+            <span>Mechas & Cor</span><strong>Iluminação & profundidade</strong>
+          </button>
+          <button class="gallery-item reveal" data-gallery-index="2">
+            <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=1400&q=88" alt="Grooming masculino" loading="lazy">
+            <span>Masculino</span><strong>Precisão & acabamento</strong>
+          </button>
+          <button class="gallery-item reveal" data-gallery-index="3">
+            <img src="https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?auto=format&fit=crop&w=1400&q=88" alt="Espaço de salão" loading="lazy">
+            <span>Espaço</span><strong>Atmosfera PEDRARA</strong>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="booking-cta" id="agendar">
+      <div class="booking-inner reveal">
+        <div>
+          <span class="eyebrow light">Agendamento</span>
+          <h2>Seu próximo momento começa aqui.</h2>
+          <p>Escolha o serviço de interesse e fale com a PEDRARA para confirmar os detalhes do atendimento.</p>
+        </div>
+        <div class="booking-actions">
+          <button class="btn btn-champagne" data-open-booking>Agendar horário <span>↗</span></button>
+          <a class="btn btn-ghost-light" href="https://www.instagram.com/pedrarasalon/" target="_blank" rel="noopener noreferrer">Falar no Instagram</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" id="contato">
+    <div class="footer-main">
+      <div>
+        <div class="footer-brand"><strong>PEDRARA</strong><span>SALON</span></div>
+        <p>Um espaço de beleza para mulheres, homens e crianças.</p>
+        <a href="https://www.instagram.com/pedrarasalon/" target="_blank" rel="noopener noreferrer">@pedrarasalon ↗</a>
+      </div>
+
+      <nav>
+        <span>Navegação</span>
+        <a href="#manifesto">O Salão</a>
+        <a href="#servicos">Serviços</a>
+        <a href="#equipe">Equipe</a>
+        <a href="#galeria">Galeria</a>
+      </nav>
+
+      <div>
+        <span>Informações</span>
+        <p>Endereço, WhatsApp e horários serão inseridos após validação dos dados oficiais.</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <small>© 2026 PEDRARA Salon</small>
+      <button id="backToTop">Voltar ao topo ↑</button>
+    </div>
+  </footer>
+
+  <div class="modal-backdrop" id="modalBackdrop"></div>
+
+  <section class="dialog booking-dialog" id="bookingDialog" role="dialog" aria-modal="true" aria-hidden="true">
+    <button class="dialog-close" data-close-dialog aria-label="Fechar">×</button>
+    <span class="eyebrow">Agendamento</span>
+    <h2>Reserve seu momento.</h2>
+    <p>O sistema de agenda completo ainda está sendo preparado. Escolha o serviço de interesse e fale diretamente com a PEDRARA pelo Instagram.</p>
+
+    <label for="bookingService">Serviço de interesse</label>
+    <select id="bookingService"></select>
+
+    <a class="btn btn-dark full" href="https://www.instagram.com/pedrarasalon/" target="_blank" rel="noopener noreferrer">Falar com a PEDRARA no Instagram ↗</a>
+  </section>
+
+  <section class="dialog catalog-dialog" id="catalogDialog" role="dialog" aria-modal="true" aria-hidden="true">
+    <button class="dialog-close" data-close-dialog aria-label="Fechar">×</button>
+    <span class="eyebrow">Serviços</span>
+    <h2>Serviços PEDRARA.</h2>
+    <div id="catalogContent"></div>
+  </section>
+
+  <section class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+    <button class="lightbox-close" data-close-lightbox aria-label="Fechar">×</button>
+    <button class="lightbox-nav prev" id="lightboxPrev" aria-label="Imagem anterior">←</button>
+    <img id="lightboxImage" src="" alt="">
+    <button class="lightbox-nav next" id="lightboxNext" aria-label="Próxima imagem">→</button>
+  </section>
+
+  <script type="module" src="/app.js"></script>
+</body>
+</html>
