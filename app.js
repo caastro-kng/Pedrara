@@ -117,6 +117,7 @@ $$('a',mobileMenu).forEach(link=>link.addEventListener('click',closeMobileMenu))
 
 let activeService=null;
 let serviceTransitionTimer=null;
+let serviceEnterTimer=null;
 
 function applyServiceContent(id){
   const data=SERVICES[id]||SERVICES.cabelo;
@@ -142,6 +143,8 @@ function renderService(id,animate=true){
   if(id===activeService)return;
   const panel=$('.service-panel');
   clearTimeout(serviceTransitionTimer);
+  clearTimeout(serviceEnterTimer);
+  panel.classList.remove('is-switching','is-entering');
 
   if(!animate){
     applyServiceContent(id);
@@ -156,7 +159,12 @@ function renderService(id,animate=true){
     panel.classList.remove('is-switching');
     void panel.offsetWidth;
     panel.classList.add('is-entering');
-    setTimeout(()=>panel.classList.remove('is-entering'),700);
+    serviceEnterTimer=setTimeout(()=>{
+      panel.classList.remove('is-entering');
+      // Defensive reset: the service panel must never remain visually hidden.
+      $('.service-media').style.removeProperty('opacity');
+      $('.service-copy').style.removeProperty('opacity');
+    },700);
   },260);
 }
 
@@ -268,3 +276,30 @@ images.forEach(image=>{
     image.closest('.media-zoom,.service-media,.gallery-item,.hero-media')?.classList.add('image-error');
   });
 });
+
+// Internal navigation without exposing hash fragments in the address bar.
+document.addEventListener('click',event=>{
+  const link=event.target.closest('a[href^="#"]');
+  if(!link)return;
+  const hash=link.getAttribute('href');
+  if(!hash||hash==='#')return;
+  const target=$(hash);
+  if(!target)return;
+  event.preventDefault();
+  closeMobileMenu();
+  target.scrollIntoView({behavior:'smooth',block:'start'});
+  if(location.hash){
+    history.replaceState(null,'',location.pathname+location.search);
+  }
+});
+
+// Clean hashes from direct/reloaded internal navigation as well.
+if(location.hash){
+  const initialTarget=$(location.hash);
+  if(initialTarget){
+    requestAnimationFrame(()=>{
+      initialTarget.scrollIntoView({block:'start'});
+      history.replaceState(null,'',location.pathname+location.search);
+    });
+  }
+}
