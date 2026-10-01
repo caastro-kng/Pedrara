@@ -156,17 +156,48 @@ function renderService(id,animate=true){
     const selected=index===activeServiceIndex;
     button.classList.toggle('active',selected);
     button.setAttribute('aria-selected',String(selected));
+    button.tabIndex=selected?0:-1;
   });
 
   const activeTab=$$('[data-service-tab]')[activeServiceIndex];
   activeTab?.scrollIntoView({behavior:animate?'smooth':'auto',block:'nearest',inline:'center'});
 }
 
-$$('[data-service-tab]').forEach((button,index)=>{
+const serviceTabs=$('[data-service-tab]');
+serviceTabs.forEach((button,index)=>{
+  button.setAttribute('role','tab');
   button.setAttribute('aria-selected',String(index===0));
+  button.tabIndex=index===0?0:-1;
   button.addEventListener('click',()=>renderService(button.dataset.serviceTab));
+  button.addEventListener('keydown',event=>{
+    if(!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;
+    event.preventDefault();
+    let next=index;
+    if(event.key==='ArrowRight')next=(index+1)%serviceTabs.length;
+    if(event.key==='ArrowLeft')next=(index-1+serviceTabs.length)%serviceTabs.length;
+    if(event.key==='Home')next=0;
+    if(event.key==='End')next=serviceTabs.length-1;
+    serviceTabs[next].focus();
+    renderService(serviceTabs[next].dataset.serviceTab);
+  });
 });
 serviceTrack.style.transform='translate3d(0,0,0)';
+
+let serviceTouchStartX=null;
+$('#serviceCarousel').addEventListener('touchstart',event=>{
+  serviceTouchStartX=event.touches[0]?.clientX??null;
+},{passive:true});
+$('#serviceCarousel').addEventListener('touchend',event=>{
+  if(serviceTouchStartX===null)return;
+  const endX=event.changedTouches[0]?.clientX??serviceTouchStartX;
+  const delta=endX-serviceTouchStartX;
+  serviceTouchStartX=null;
+  if(Math.abs(delta)<50)return;
+  const next=delta<0
+    ? Math.min(SERVICE_ORDER.length-1,activeServiceIndex+1)
+    : Math.max(0,activeServiceIndex-1);
+  if(next!==activeServiceIndex)renderService(SERVICE_ORDER[next]);
+},{passive:true});
 
 const backdrop=$('#modalBackdrop');
 const bookingDialog=$('#bookingDialog');
@@ -264,13 +295,12 @@ addEventListener('keydown',event=>{
 
 $('#backToTop').addEventListener('click',()=>scrollTo({top:0,behavior:'smooth'}));
 
-const images=$$('img');
-images.forEach(image=>{
-  image.addEventListener('error',()=>{
-    image.style.opacity='.2';
-    image.closest('.media-zoom,.service-media,.gallery-item,.hero-media')?.classList.add('image-error');
-  });
-});
+document.addEventListener('error',event=>{
+  const image=event.target;
+  if(!(image instanceof HTMLImageElement))return;
+  image.style.opacity='.2';
+  image.closest('.media-zoom,.service-media,.gallery-item,.hero-media,.visual-highlight')?.classList.add('image-error');
+},true);
 
 
 // Hashless single-page navigation: the address bar stays on the site root.
