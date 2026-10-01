@@ -115,87 +115,58 @@ menuToggle.addEventListener('click',()=>{
 });
 $$('a',mobileMenu).forEach(link=>link.addEventListener('click',closeMobileMenu));
 
-let activeService=null;
-let serviceAnimationToken=0;
+const SERVICE_ORDER=['cabelo','cor','masculino','sobrancelhas','maquiagem'];
+let activeServiceIndex=0;
+const serviceTrack=$('#serviceTrack');
 
-function applyServiceContent(id){
-  const data=SERVICES[id]||SERVICES.cabelo;
-  const image=$('#serviceImage');
-  image.src=data.image;
-  image.alt=data.title;
-  $('#serviceSubtitle').textContent=data.subtitle;
-  $('#serviceTitle').textContent=data.title;
-  $('#serviceDescription').textContent=data.description;
-  $('#serviceList').innerHTML=data.items.map(name=>`
-    <div class="service-row">
-      <div><strong>${name}</strong><span> · Sob consulta</span></div>
-      <button data-book-service="${name}">Agendar</button>
-    </div>`).join('');
-  $$('[data-service-tab]').forEach(button=>{
-    button.classList.toggle('active',button.dataset.serviceTab===id);
+function serviceSlideMarkup(id){
+  const data=SERVICES[id];
+  return `
+    <article class="service-slide" data-service-slide="${id}">
+      <div class="service-media media-zoom">
+        <img src="${data.image}" alt="${data.title}" loading="lazy">
+      </div>
+      <div class="service-copy">
+        <span class="service-subtitle">${data.subtitle}</span>
+        <h3>${data.title}</h3>
+        <p>${data.description}</p>
+        <div class="service-list">
+          ${data.items.map(name=>`
+            <div class="service-row">
+              <div><strong>${name}</strong><span> · Sob consulta</span></div>
+              <button data-book-service="${name}">Agendar</button>
+            </div>`).join('')}
+        </div>
+      </div>
+    </article>`;
+}
+
+serviceTrack.innerHTML=SERVICE_ORDER.map(serviceSlideMarkup).join('');
+
+function renderService(id,animate=true){
+  const nextIndex=SERVICE_ORDER.indexOf(id);
+  if(nextIndex<0||nextIndex===activeServiceIndex)return;
+
+  activeServiceIndex=nextIndex;
+  serviceTrack.classList.toggle('no-motion',!animate);
+  serviceTrack.style.transform=`translate3d(-${activeServiceIndex*100}%,0,0)`;
+  if(!animate) requestAnimationFrame(()=>serviceTrack.classList.remove('no-motion'));
+
+  $$('[data-service-tab]').forEach((button,index)=>{
+    const selected=index===activeServiceIndex;
+    button.classList.toggle('active',selected);
+    button.setAttribute('aria-selected',String(selected));
   });
-  activeService=id;
+
+  const activeTab=$$('[data-service-tab]')[activeServiceIndex];
+  activeTab?.scrollIntoView({behavior:animate?'smooth':'auto',block:'nearest',inline:'center'});
 }
 
-async function renderService(id,animate=true){
-  if(id===activeService)return;
-  const media=$('.service-media');
-  const copy=$('.service-copy');
-  const token=++serviceAnimationToken;
-
-  media.getAnimations().forEach(animation=>animation.cancel());
-  copy.getAnimations().forEach(animation=>animation.cancel());
-  media.style.opacity='1';
-  copy.style.opacity='1';
-  media.style.transform='none';
-  copy.style.transform='none';
-  media.style.filter='none';
-  copy.style.filter='none';
-
-  if(!animate||matchMedia('(prefers-reduced-motion: reduce)').matches){
-    applyServiceContent(id);
-    return;
-  }
-
-  const outOptions={duration:180,easing:'cubic-bezier(.4,0,1,1)',fill:'forwards'};
-  const outMedia=media.animate([
-    {opacity:1,transform:'translateX(0) scale(1)',filter:'blur(0)'},
-    {opacity:0,transform:'translateX(-12px) scale(.995)',filter:'blur(3px)'}
-  ],outOptions);
-  const outCopy=copy.animate([
-    {opacity:1,transform:'translateX(0)',filter:'blur(0)'},
-    {opacity:0,transform:'translateX(12px)',filter:'blur(3px)'}
-  ],outOptions);
-
-  await Promise.allSettled([outMedia.finished,outCopy.finished]);
-  if(token!==serviceAnimationToken)return;
-
-  applyServiceContent(id);
-  media.getAnimations().forEach(animation=>animation.cancel());
-  copy.getAnimations().forEach(animation=>animation.cancel());
-
-  const inOptions={duration:420,easing:'cubic-bezier(.16,1,.3,1)',fill:'none'};
-  media.animate([
-    {opacity:0,transform:'translateX(-12px) scale(1.008)',filter:'blur(3px)'},
-    {opacity:1,transform:'translateX(0) scale(1)',filter:'blur(0)'}
-  ],inOptions);
-  copy.animate([
-    {opacity:0,transform:'translateX(12px)',filter:'blur(3px)'},
-    {opacity:1,transform:'translateX(0)',filter:'blur(0)'}
-  ],inOptions);
-
-  media.style.opacity='1';
-  copy.style.opacity='1';
-  media.style.transform='none';
-  copy.style.transform='none';
-  media.style.filter='none';
-  copy.style.filter='none';
-}
-
-$$('[data-service-tab]').forEach(button=>{
+$$('[data-service-tab]').forEach((button,index)=>{
+  button.setAttribute('aria-selected',String(index===0));
   button.addEventListener('click',()=>renderService(button.dataset.serviceTab));
 });
-renderService('cabelo',false);
+serviceTrack.style.transform='translate3d(0,0,0)';
 
 const backdrop=$('#modalBackdrop');
 const bookingDialog=$('#bookingDialog');
