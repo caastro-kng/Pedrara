@@ -163,7 +163,7 @@ function renderService(id,animate=true){
   activeTab?.scrollIntoView({behavior:animate?'smooth':'auto',block:'nearest',inline:'center'});
 }
 
-const serviceTabs=$('[data-service-tab]');
+const serviceTabs=Array.from(document.querySelectorAll('[data-service-tab]'));
 serviceTabs.forEach((button,index)=>{
   button.setAttribute('role','tab');
   button.setAttribute('aria-selected',String(index===0));
