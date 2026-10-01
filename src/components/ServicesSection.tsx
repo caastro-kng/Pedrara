@@ -19,11 +19,11 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
   const categoryServices = SERVICES_LIST.filter((s) => s.category === activeCategory.id);
 
   return (
-    <section id="servicos" className="py-24 sm:py-32 bg-[#F4F1EB] relative">
+    <section id="servicos" className="py-16 sm:py-20 bg-[#F4F1EB] relative">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Section Header */}
         <FadeIn direction="up">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 sm:mb-20">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 sm:mb-12">
             <div className="space-y-3 max-w-xl">
               <span className="text-[11px] uppercase tracking-[0.3em] text-[#C5A880] font-sans font-medium">
                 Especialidades
@@ -71,11 +71,11 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
         </FadeIn>
 
         {/* Dynamic Editorial Content Panel */}
-        <div className="mt-12 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+        <div className="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
           {/* Visual Showcase (5 cols) */}
           <div className="lg:col-span-5 relative group">
             <FadeIn direction="up" delay={0.2}>
-              <div className="aspect-[4/5] overflow-hidden bg-[#FAF8F5] border border-[#D8D5CF]/80 shadow-md">
+              <div className="aspect-[5/4] overflow-hidden bg-[#FAF8F5] border border-[#D8D5CF]/80 shadow-md">
                 <ImageWithFallback
                   src={activeCategory.heroImage}
                   alt={activeCategory.title}
@@ -96,7 +96,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
           </div>
 
           {/* Service Details & List (7 cols) */}
-          <div className="lg:col-span-7 space-y-8">
+          <div className="lg:col-span-7 space-y-5">
             <FadeIn direction="up" delay={0.25}>
               <div className="space-y-3">
                 <span className="text-xs text-[#7E7E88] uppercase tracking-[0.2em]">
@@ -117,7 +117,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                 {categoryServices.map((service) => (
                   <div
                     key={service.id}
-                    className="py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 group/item hover:bg-[#FAF8F5]/60 transition-colors px-2 -mx-2"
+                    className="py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 group/item hover:bg-[#FAF8F5]/60 transition-colors px-2 -mx-2"
                   >
                     <div className="space-y-1 max-w-md">
                       <div className="flex items-center gap-2">

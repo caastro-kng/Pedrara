@@ -13,7 +13,6 @@ import { VisualHighlight } from './components/VisualHighlight';
 import { TeamSection } from './components/TeamSection';
 import { GallerySection } from './components/GallerySection';
 import { BookingCTA } from './components/BookingCTA';
-import { InstagramSection } from './components/InstagramSection';
 import { Footer } from './components/Footer';
 import { BookingModal } from './components/BookingModal';
 import { ServicesModal } from './components/ServicesModal';
@@ -74,8 +73,6 @@ export default function App() {
         {/* 10 — CTA de Agendamento */}
         <BookingCTA onOpenBooking={() => handleOpenBooking()} />
 
-        {/* 11 — Instagram */}
-        <InstagramSection />
       </main>
 
       {/* 12 — Footer */}
