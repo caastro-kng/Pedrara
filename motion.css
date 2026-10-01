@@ -5,8 +5,8 @@
 @keyframes heroIn{from{opacity:0;transform:translateY(24px);filter:blur(7px)}to{opacity:1;transform:none;filter:none}}
 .hero-media img{transform:scale(calc(1.035 + var(--scroll-progress) * .03)) translate3d(calc(var(--pointer-x) * -0.04px),calc(var(--pointer-y) * -0.04px),0);transition:transform .18s linear}
 .visual-highlight>img{transform:scale(calc(1.02 + var(--scroll-energy) * .012)) translate3d(calc(var(--pointer-x) * -0.025px),calc(var(--pointer-y) * -0.025px),0);transition:transform .2s linear}
-.service-media img{animation:serviceSwap .45s cubic-bezier(.2,.8,.2,1)}
-@keyframes serviceSwap{from{opacity:.35;transform:scale(1.025)}to{opacity:1;transform:none}}
+.service-media img{transition:transform .8s cubic-bezier(.16,1,.3,1)}
+.service-panel:not(.is-switching) .service-media:hover img{transform:scale(1.025)}
 .gallery-item{transition:transform .28s ease}.gallery-item:hover{transform:translateY(-4px)}
 .btn span,.text-link span{transition:transform .25s ease}.btn:hover span,.text-link:hover span{transform:translate(2px,-2px)}
 @media(prefers-reduced-motion:reduce){

@@ -79,6 +79,8 @@ function updateScroll(){
   document.documentElement.style.setProperty('--scroll-energy',energy);
   progress.style.width=`${ratio*100}%`;
   header.classList.toggle('scrolled',current>30);
+  const heroBottom=$('#hero').getBoundingClientRect().bottom;
+  header.classList.toggle('hero-left',heroBottom<=header.offsetHeight+8);
   lastY=current;
   ticking=false;
 }
@@ -113,14 +115,14 @@ menuToggle.addEventListener('click',()=>{
 });
 $$('a',mobileMenu).forEach(link=>link.addEventListener('click',closeMobileMenu));
 
-function renderService(id){
+let activeService=null;
+let serviceTransitionTimer=null;
+
+function applyServiceContent(id){
   const data=SERVICES[id]||SERVICES.cabelo;
   const image=$('#serviceImage');
-  image.style.animation='none';
-  image.offsetHeight;
   image.src=data.image;
   image.alt=data.title;
-  image.style.animation='';
   $('#serviceSubtitle').textContent=data.subtitle;
   $('#serviceTitle').textContent=data.title;
   $('#serviceDescription').textContent=data.description;
@@ -130,15 +132,38 @@ function renderService(id){
       <button data-book-service="${name}">Agendar</button>
     </div>`).join('');
 
-  $$('[data-service-tab]').forEach(button=>{
+  $('[data-service-tab]').forEach(button=>{
     button.classList.toggle('active',button.dataset.serviceTab===id);
   });
+  activeService=id;
+}
+
+function renderService(id,animate=true){
+  if(id===activeService)return;
+  const panel=$('.service-panel');
+  clearTimeout(serviceTransitionTimer);
+
+  if(!animate){
+    applyServiceContent(id);
+    return;
+  }
+
+  panel.classList.remove('is-entering');
+  panel.classList.add('is-switching');
+
+  serviceTransitionTimer=setTimeout(()=>{
+    applyServiceContent(id);
+    panel.classList.remove('is-switching');
+    void panel.offsetWidth;
+    panel.classList.add('is-entering');
+    setTimeout(()=>panel.classList.remove('is-entering'),700);
+  },260);
 }
 
 $$('[data-service-tab]').forEach(button=>{
   button.addEventListener('click',()=>renderService(button.dataset.serviceTab));
 });
-renderService('cabelo');
+renderService('cabelo',false);
 
 const backdrop=$('#modalBackdrop');
 const bookingDialog=$('#bookingDialog');
